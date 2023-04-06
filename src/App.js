@@ -11,16 +11,6 @@ function App() {
   const [isAnybody, setIsAnybody] = useState(false)
   const [brands, setBrands] = useState(brandsLogos)
   const [items, setItems] = useState(data)
-  
-  useEffect(()=>{
-    brands.map(item=>{
-        item.isActive = false
-    })
-    setBrands(brands)
-  },[brands])
-
-  // console.log(brands);
-
 
 
   useEffect(()=>{
@@ -70,42 +60,38 @@ function App() {
 
   return (
     <div className={box} >
-    <div className={container}  onMouseEnter={()=>setOnfocus(true)}  onMouseLeave={()=>setOnfocus(false)}>
-      <nav className={navigation}>
+      <div className={container}  onMouseEnter={()=>setOnfocus(true)}  onMouseLeave={()=>setOnfocus(false)}>
 
-          <Select data={items} styles='w-[60px]' label='Статус' type={'status'} onFocus={onFocus}/>
+        <nav className={navigation}>
+            <Select data={items} styles='w-[60px]' label='Статус' type={'status'} onFocus={onFocus}/>
+            <Select styles='w-[60px]' label='Товар'  data={items} type={'type'} onFocus={onFocus}/>
+            <Select styles='w-[40px]' label='ID'  data={items} type={'id'} onFocus={onFocus}/>
+            <Select styles='w-[120px]' label='Название'  data={items} type={'name'} onFocus={onFocus}/>
 
-          <Select styles='w-[60px]' label='Товар'  data={items} type={'type'} onFocus={onFocus}/>
+            <div className='flex flex-col w-[24px] justify-between'>
+              <button className={addBtn} onClick={()=>addNewItem()}><span className="material-symbols-outlined text-base">add</span></button>
+              {isAnybody && <button className={addBtn} onClick={()=>clearAll()}><span className="material-symbols-outlined  text-base">close</span></button>}
+            </div>
+        </nav>
 
-          <Select styles='w-[40px]' label='ID'  data={items} type={'id'} onFocus={onFocus}/>
 
-          <Select styles='w-[120px]' label='Название'  data={items} type={'name'} onFocus={onFocus}/>
-
-          <div className='flex flex-col w-[24px] justify-between'>
-            <button className={addBtn} onClick={()=>addNewItem()}><span className="material-symbols-outlined text-base">add</span></button>
-            {isAnybody && <button className={addBtn} onClick={()=>clearAll()}><span className="material-symbols-outlined  text-base">close</span></button>}
-          </div>
-
-      </nav>
-
-      <ul className={list}>
-          {items.map((item,index)=>(
-            <ListItem  
-              key={item.id} 
-              data={item} 
-              id={item.id}
-              brands={brands}
-              setBrands={setBrands}
-              onFocus={onFocus}
-              remove={deleteItem}
-              setItemStatus={setItemStatus} 
-              chooseItem={chooseItem}
-            />
-          ))}
-      </ul>
-    </div> 
-
-    
+        <ul className={list}>
+            {items.map((item,index)=>(
+              <ListItem  
+                key={item.id} 
+                data={item} 
+                id={item.id}
+                brands={brands}
+                setBrands={setBrands}
+                onFocus={onFocus}
+                remove={deleteItem}
+                setItemStatus={setItemStatus} 
+                chooseItem={chooseItem}
+              />
+            ))}
+        </ul>
+        
+      </div> 
     </div>
   );
 }

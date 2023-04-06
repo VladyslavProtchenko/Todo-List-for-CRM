@@ -3,8 +3,6 @@
 @tailwind utilities;
 
 
-
-
 ::-webkit-scrollbar {
     background: #cdcdcd;
     width: 3px;
